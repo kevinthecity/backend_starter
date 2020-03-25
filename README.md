@@ -1,6 +1,6 @@
 # Backend starter kit
 
-Simple no-magic backend starter kit. Perfect for the frontend developer who wants to see *explicitly* how everything works. The easier way to use this is running locally and on Heroku. Installtion instructions for Mac OS.
+Simple no-magic backend starter kit. Perfect for the frontend developer who wants to see *explicitly* how everything works. The easier way to use this is running locally and on Heroku. Installation instructions for Mac OS.
 
 *Small Note*: I am not really a backend developer! So if you think there are things that could be improved to make this easier and/or nicer, please submit PRs or open issues, would love your feedback!
 
