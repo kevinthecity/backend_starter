@@ -55,7 +55,7 @@ git clone ...
 yarn install;
 ```
 
-1. Generate a secret key, and place it in your `.env` file. I did so using [this](https://mherman.org/blog/node-passport-and-postgres/) method. (We don't use passport, but we still use the secret key)
+2. Generate a secret key, and place it in your `.env` file. I did so using [this](https://mherman.org/blog/node-passport-and-postgres/) method. (We don't use passport, but we still use the secret key)
 
 ```
 $ python
@@ -64,7 +64,7 @@ $ python
 "\x02\xf3\xf7r\t\x9f\xee\xbbu\xb1\xe1\x90\xfe'\xab\xa6L6\xdd\x8d[\xccO\xfe"
 ```
 
-1. Configure a local database for testing. This requires you to enter the postgres server running on your machine (the one you installed from `brew install postgres`).
+3. Configure a local database for testing. This requires you to enter the postgres server running on your machine (the one you installed from `brew install postgres`).
 
 - Make sure postgres is running, `brew services start postgres`.
 - In terminal, access postgres server via `psql` command.
@@ -79,20 +79,20 @@ postgresql://myuser@localhost/your_db_name
 
 If you have issues with the user, check [this](https://stackoverflow.com/questions/30641512/create-database-from-command-line) stackoverflow answer for help creating a user.
 
-1. Run migrations!
+4. Run migrations!
 
 ```
 yarn migrate
 ```
 
-1. Test out development, you should be up and running! Best way to test it out is to visit the graphql broswer thats bundled in with your server (thanks Apollo!).
+5. Test out development, you should be up and running! Best way to test it out is to visit the graphql broswer thats bundled in with your server (thanks Apollo!).
 
 ```
 yarn develop
 {"message":"🚀 Visit graphiql browser at http://localhost:5000/graphql","level":"info"}
 ```
 
-1. From here you can create a user, like this:
+6. From here you can create a user, like this:
 
 ```
 mutation{
@@ -104,7 +104,7 @@ mutation{
 }
 ```
 
-1. This token is your JSON web token, and you should send this up in a header to authorize your graphql requests.
+7. This token is your JSON web token, and you should send this up in a header to make authenticated graphql requests.
 
 ```
 {
@@ -112,7 +112,7 @@ mutation{
 }
 ```
 
-1. You're done! This is all you need to do to get started with local development. Check out the scripts in `package.json` for ideas of things you can do, like create database migrations and send test emails.
+8. You're done! This is all you need to do to get started with local development. Check out the scripts in `package.json` for ideas of things you can do, like create database migrations and send test emails.
 
 ## Heroku
 
@@ -120,4 +120,4 @@ This project should almost work "out of the box" when uploading to Heroku. Some 
 
 1. You need to add a "postgres" addon, and then make sure that the env variable heroku adds matches the name in the project (it should).
 
-1. To use the graphql broswer in production, you need to add `NODE_ENV=development` to your config vars. This is meant to be disabled in prod so that people cant access your graphql super easily, but its fine to leave on while devving for a while.
+2. To use the graphql broswer in production, you need to add `NODE_ENV=development` to your config vars. This is meant to be disabled in prod so that people cant access your graphql super easily, but its fine to leave on while devving for a while.
