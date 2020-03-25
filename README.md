@@ -114,7 +114,10 @@ mutation{
 
 1. You're done! This is all you need to do to get started with local development. Check out the scripts in `package.json` for ideas of things you can do, like create database migrations and send test emails.
 
-1. This project should almost work "out of the box" when uploading to Heroku. Some things to keep in mind.
+## Heroku
 
-- You need to add a "postgres" addon, and then make sure that the env variable heroku adds matches the name in the project (it should).
-- To use the graphql broswer in production, you need to add `NODE_ENV=development` to your config vars. This is meant to be disabled in prod so that people cant access your graphql super easily, but its fine to leave on while devving for a while.
+This project should almost work "out of the box" when uploading to Heroku. Some things to keep in mind.
+
+1. You need to add a "postgres" addon, and then make sure that the env variable heroku adds matches the name in the project (it should).
+
+1. To use the graphql broswer in production, you need to add `NODE_ENV=development` to your config vars. This is meant to be disabled in prod so that people cant access your graphql super easily, but its fine to leave on while devving for a while.
