@@ -1,0 +1,16 @@
+overwrite: true
+schema: "http://localhost:3000/graphql"
+documents: null
+generates:
+  src/graphql/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+      - "typescript-document-nodes"
+    config:
+      immutableTypes: true
+      contextType: ./codegen#Context
+      mappers:
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
