@@ -1,7 +1,7 @@
 import Knex from "knex";
 import knexStringcase from "knex-stringcase";
 import { merge } from "lodash";
-import knexfile from "./knexfile";
+import knexfile from "../../knexfile";
 
 /**
  * Thos most important note here, is that your postgres columns are snake_cased,
