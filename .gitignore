@@ -1,0 +1,35 @@
+# dotenv environment variables file
+.env
+
+# Project build output
+dist/
+
+# Dependency directory
+node_modules
+
+# Editors
+.idea
+*.iml
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# node-waf configuration
+.lock-wscript
+
+# Optional npm cache directory
+.npm
+
+# Yarn
+yarn-error.log
+.pnp/
+.pnp.js
+# Yarn Integrity file
+.yarn-integrity
+
+# OS metadata
+.DS_Store
+Thumbs.db
