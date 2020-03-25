@@ -1,6 +1,6 @@
 # Backend starter kit
 
-Simple no-magic backend starter kit. Perfect for the frontend developer who wants to see _explicitly_ how everything works. The easier way to use this is running locally and on Heroku. Installtion instructions for Mac OS.
+Simple no-magic backend starter kit. Perfect for the frontend developer who wants to see *explicitly* how everything works. The easier way to use this is running locally and on Heroku. Installation instructions for Mac OS.
 
 _Small Note_: I am not really a backend developer! So if you think there are things that could be improved to make this easier and/or nicer, please submit PRs or open issues, would love your feedback!
 
@@ -59,6 +59,7 @@ yarn install;
 
 ```
 $ python
+
 >>> import os
 >>> os.urandom(24)
 "\x02\xf3\xf7r\t\x9f\xee\xbbu\xb1\xe1\x90\xfe'\xab\xa6L6\xdd\x8d[\xccO\xfe"
