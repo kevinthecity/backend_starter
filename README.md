@@ -1,10 +1,10 @@
 # Backend starter kit
 
-Simple no-magic backend starter kit. Perfect for the frontend developer who wants to see *explicitly* how everything works. The easier way to use this is running locally and on Heroku. Installtion instructions for Mac OS.
+Simple no-magic backend starter kit. Perfect for the frontend developer who wants to see _explicitly_ how everything works. The easier way to use this is running locally and on Heroku. Installtion instructions for Mac OS.
 
-*Small Note*: I am not really a backend developer! So if you think there are things that could be improved to make this easier and/or nicer, please submit PRs or open issues, would love your feedback!
+_Small Note_: I am not really a backend developer! So if you think there are things that could be improved to make this easier and/or nicer, please submit PRs or open issues, would love your feedback!
 
-*BIG Note*: I implemented Authentication myself through reading lots of documentation and picking through lots of articles. I personally believe it is secure and have used it in my own projects, however I cannot guarantee that it's 100% secure. Please keep this in mind if using this in your project.
+_BIG Note_: I implemented Authentication myself through reading lots of documentation and picking through lots of articles. I personally believe it is secure and have used it in my own projects, however I cannot guarantee that it's 100% secure. Please keep this in mind if using this in your project.
 
 Please don't hesitate to reach out to me on twitter @kevingrant5 or file an issue here if you need more help getting started!
 
@@ -39,6 +39,7 @@ brew install postgres
 ```
 
 2. Yarn. You could also use npm, but I've set up this project to use [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable). No real reason other than I'm used to typing it.
+
 ```
 brew install yarn
 ```
@@ -46,7 +47,6 @@ brew install yarn
 3. A [Heroku](http://heroku.com/) account. It's free for most use cases, and incremenetally charges when your projet gets large (but it has to get pretty large to cost you anything).
 
 ## Getting started
-
 
 1. Clone project and install dependencies.
 
@@ -121,3 +121,81 @@ This project should almost work "out of the box" when uploading to Heroku. Some 
 1. You need to add a "postgres" addon, and then make sure that the env variable heroku adds matches the name in the project (it should).
 
 2. To use the graphql broswer in production, you need to add `NODE_ENV=development` to your config vars. This is meant to be disabled in prod so that people cant access your graphql super easily, but its fine to leave on while devving for a while.
+
+## Development
+
+A lot of what you're going to end up doing is creating migrations, and exposing your new stuff via graphql.
+
+This is how you generate a migration:
+
+```
+yarn createMigration add_role_to_user_table
+```
+
+```
+const { onUpdateTrigger } = require("../../knexfile");
+
+exports.up = async knex =>
+  knex.schema
+    .table("users", table => {
+      table.string("role);
+    });
+
+exports.down = async knex => knex.schema.dropColumn("role");
+
+```
+
+Next, you're going to be updating your graphql schema to reflect the new stuff you added!
+
+```
+export const typeDef = gql`
+  extend type Query {
+    account: User!
+  }
+
+  extend type Mutation {
+    register(email: String!, password: String!): User
+    signIn(email: String!, password: String!): User
+    requestPasswordReset(email: String!): Boolean
+    resetPassword(token: String!, newPassword: String!): Boolean
+    updateRole(role: String!): Boolean <--- New stuff
+  }
+
+  type User {
+    id: ID
+    email: String
+    token: String
+    role: String <--- new stuff!
+  }
+`;
+```
+
+Now, make sure oyur development server is running in a terminal window:
+
+```
+yarn develop
+```
+
+And in a seperate window, generate the typescript code for the schema changes you just made:
+
+```
+yarn gql
+```
+
+Now you can reference these new types in the resolvers
+
+```
+  Mutation: {
+    async register(root, args, context) {
+      ...
+    },
+    async updateRole(root, args, context) {
+      ...New stuff here!
+    },
+```
+
+Since on a user query, we just return all columns `(select(*))`, we dont' need to make any more changes to expose role, it's just there! In other cases we might need to do more, but cross that bridge when you get there.
+
+### Issues
+
+The big issue you may run into with this flow is that to generate the code, the server must be running, and if your code isnt compiling, then the server cant run. This can lead to some weird chicken and egg issues with your schema, so keep this in mind!
